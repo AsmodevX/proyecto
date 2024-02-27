@@ -1,0 +1,15 @@
+# Python virtual environment
+myvenv/
+.myvenv/
+
+# FastAPI related
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE specific files (if you're using an IDE)
+.idea/
+.vscode/
+
+# Ignore environment-specific files
+.env

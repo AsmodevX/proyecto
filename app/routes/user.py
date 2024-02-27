@@ -35,7 +35,7 @@ def read_user(user_id: int, db: Session = Depends(get_db), token: str = security
         )
     
 
-@roter.put("/{user_id}")
+@router.put("/{user_id}")
 def update_user(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):
     try:
         db_user = update_user(user_iud=user_id, user=user, db=db)
@@ -50,3 +50,17 @@ def update_user(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):
             detail="Error: " +str(e),
         )
 
+@router.delete("/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    try:
+        db_user = delete_user(user_id = user_id, db=db)
+        if db_user is None:
+            return JSONResponse(content={"message": "User not found"},
+                                status_code=status.HTTP_404_NOT_FOUND)
+        return db_user
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error: " + str(e),
+        )
