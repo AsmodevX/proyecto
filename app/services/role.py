@@ -1,5 +1,5 @@
 from typing import Type
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 from app.models.role import Role
 
 def  get_role_by_name(name: str, db: Session) -> Type[Role] | None:

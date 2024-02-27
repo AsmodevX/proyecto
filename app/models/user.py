@@ -10,7 +10,7 @@ class User(Base):
     email = Column(String(200), unique=True, index=True)
     full_name = Column(String(200), index=True)
     hashed_password = Column(String(200))
-    is_active = Column(Boolean, defaul=True)
+    is_active = Column(Boolean, default=True)
     roles = relationship("Role", secondary="user_role")
 
     def __init__(self, email, full_name, hashed_password):

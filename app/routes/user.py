@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, security
+from fastapi import APIRouter, Depends, HTTPException, status, Security
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer
 from app.database import get_db
@@ -13,6 +13,7 @@ router = APIRouter()
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = get_user_by_email(email=user.email, db=db)
+    print (db_user)
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -21,7 +22,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return create_user(user=user, db=db)
 
 @router.get ("/{user_id}")
-def read_user(user_id: int, db: Session = Depends(get_db), token: str = security(auth_required(["Usuario"]))):
+def read_user(user_id: int, db: Session = Depends(get_db), token: str = Security(auth_required(["Usuario"]))):
     try:
         db_user = get_user(user_id=user_id, db=db)
         if db_user is None:
