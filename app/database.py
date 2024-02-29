@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.schema import MetaData
 
 load_dotenv()
 
@@ -17,7 +18,8 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, binf=engine)
 
-Base = declarative_base()
+metadata = MetaData()
+Base = declarative_base(metadata=metadata)
 
 def get_db():
     print("Obteniendo sesión de base de datos")
